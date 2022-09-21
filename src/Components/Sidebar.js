@@ -12,11 +12,20 @@ function Sidebar(props) {
         display: 'flex',
         flexDirection: 'column'
       }}>
-        <button>N</button>
-        <button>L</button>
-        <button>TD</button>
+        <button>
+          <img src="note.png" alt="N"></img>  
+        </button>
+        <button>
+          <img src="link.png" alt="L"></img>  
+        </button>
+        <button>
+          <img src="todo.png" alt="TD"></img>  
+        </button>
+
       </div>
-      <button>Tr</button>
+      <button>
+        <img src="trash.png" alt="Tr"></img>  
+      </button>
     </div>
   )
 }

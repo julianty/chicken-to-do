@@ -1,18 +1,31 @@
 function Navbar(props) {
   return (
     <div className='nav-bar'>
-      <button>H</button>
-      <button>S</button>
-      <button>N</button>
-      <button>S</button>
+      <button>
+        <img src="help.png" alt="H"></img>  
+      </button>
+      <button>
+        <img src="search.png" alt="S"></img>  
+      </button>
+      <button>
+        <img src="notification.png" alt="N"></img>  
+      </button>
+      <button>
+        <img src="settings.png" alt="S"></img>  
+      </button>
     </div>
   )
 }
 
 function Logo(props) {
+  const style = {
+    display: 'flex',
+    gap: '5px'
+  }
   return (
-    <div className='logo'>
-      L
+    <div className='logo' style={style}>
+      <img src="Logo.png" id="tiny-logo" alt="L"></img>
+      <div>Chicken To Do</div>
     </div>
   )
 }
