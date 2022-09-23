@@ -19,7 +19,7 @@ function App() {
     }
   },);
 
-  const [noteList, setNoteList] = useState([])
+  const [cardList, setCardList] = useState([])
 
   const style = {
     display: 'grid',
@@ -31,18 +31,18 @@ function App() {
 
 
   function sidebarClickHandler(e) {
-    pushToNoteList('note');
+    pushToCardList('card');
   }
 
-  function pushToNoteList(note) {
-    setNoteList(noteList.concat([note]));
+  function pushToCardList(card) {
+    setCardList(cardList.concat([card]));
   }
 
   return (
     <div style={style}>
       <Header />
       <Sidebar clickHandler={sidebarClickHandler}/>
-      <Workspace noteList={noteList}/>
+      <Workspace cardList={cardList}/>
     </div>
   );
 }

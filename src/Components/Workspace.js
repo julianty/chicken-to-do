@@ -1,13 +1,9 @@
-import { useState } from "react"
-import Note from "./Note"
+import Card from "./Card"
 
 function Workspace(props) {
-  const [notes, setNotes] = useState([])
-
-  console.log(props.noteList);
   return (
     <div id='workspace'>
-      {props.noteList.map(noteClass => <Note />)}
+      {props.cardList.map(noteClass => <Card />)}
     </div>
   )
 }
