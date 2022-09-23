@@ -4,6 +4,7 @@ function Sidebar(props) {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: 'white',
   }
 
@@ -16,18 +17,30 @@ function Sidebar(props) {
         flexDirection: 'column'
       }}>
         <button onClick={props.clickHandler}>
-          <img src="note.png" alt="N" id='noteButton'></img>  
+          <img src="note.png" 
+            alt="N" 
+            id='noteButton' 
+            className="click-img"></img>  
         </button>
         <button onClick={props.clickHandler}>
-          <img src="link.png" alt="L" id='linkButton'></img>  
+          <img src="link.png" 
+          alt="L" 
+          id='linkButton' 
+          className="click-img"></img>  
         </button>
         <button onClick={props.clickHandler}>
-          <img src="todo.png" alt="TD" id='todoButton'></img>  
+          <img src="todo.png" 
+          alt="TD" 
+          id='todoButton' 
+          className="click-img"></img>  
         </button>
 
       </div>
       <button onClick={props.clickHandler}>
-        <img src="trash.png" alt="Tr" id='trashButton'></img>  
+        <img src="trash.png" 
+        alt="Tr" 
+        id='trashButton' 
+        className="click-img"></img>  
       </button>
     </div>
   )

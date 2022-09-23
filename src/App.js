@@ -3,7 +3,7 @@ import Header from './Components/Header';
 import Sidebar from './Components/Sidebar';
 import Workspace from './Components/Workspace';
 import dragElement from './Components/dragElement';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 function App() {
@@ -19,18 +19,23 @@ function App() {
     }
   },);
 
+  const [noteList, setNoteList] = useState([])
+
   const style = {
     display: 'grid',
-    gridTemplateRows: '5% auto',
+    gridTemplateRows: '7% auto',
     gridTemplateColumns: '5% auto',
     backgroundColor: '#eeeeee',
     height: '100vh'
   }
 
-  let noteList = ['note'];
 
   function sidebarClickHandler(e) {
-    noteList.push('note');
+    pushToNoteList('note');
+  }
+
+  function pushToNoteList(note) {
+    setNoteList(noteList.concat([note]));
   }
 
   return (

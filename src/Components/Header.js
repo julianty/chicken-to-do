@@ -2,16 +2,16 @@ function Navbar(props) {
   return (
     <div className='nav-bar'>
       <button>
-        <img src="help.png" alt="H"></img>  
+        <img src="help.png" alt="H" className="click-img"></img>  
       </button>
       <button>
-        <img src="search.png" alt="S"></img>  
+        <img src="search.png" alt="S" className="click-img"></img>  
       </button>
       <button>
-        <img src="notification.png" alt="N"></img>  
+        <img src="notification.png" alt="N" className="click-img" ></img>  
       </button>
       <button>
-        <img src="settings.png" alt="S"></img>  
+        <img src="settings.png" alt="S" className="click-img"></img>  
       </button>
     </div>
   )
