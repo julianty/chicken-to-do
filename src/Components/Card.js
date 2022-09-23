@@ -1,11 +1,17 @@
+import { Component } from "react"
 
-function Card(props) {
 
-  return (
-    <div className="draggable">
-      <div>Card</div>
-    </div>
-  )
+class Card extends Component {
+  constructor(props) {
+    super(props)
+  }
+  render = () => {
+    return (
+      <div className="draggable">
+        <div>Card</div>
+      </div>
+    )
+  }
 }
 
 
