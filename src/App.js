@@ -4,22 +4,36 @@ import Sidebar from './Components/Sidebar';
 import Workspace from './Components/Workspace';
 import dragElement from './Components/dragElement';
 import { useEffect, useState } from 'react';
+import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
 
+function App(props) {
 
-function App() {
+  const [cardList, setCardList] = useState([])
   // Make elements with the draggable class draggable
   useEffect(() => {
     const draggableElements = document.getElementsByClassName('draggable');
     if (draggableElements) {
       for (let i=0; i<draggableElements.length; i++) {
         dragElement(draggableElements[i]);
-        console.log(draggableElements[i])
       }
-      // console.log(document.getElementsByClassName('draggable'));
     }
   },);
 
-  const [cardList, setCardList] = useState([])
+  useEffect(() => {
+    const db = getFirestore(props.app);
+    const cardsColRef = collection(db, 'cards');
+    const unsub = onSnapshot(cardsColRef, (snapshot) => {
+      console.log(snapshot.docs.map((doc) => (
+        {
+          title: doc.data().title
+        }
+      )));
+      // console.log(snapshot.docs[0].data().title);
+    })
+
+    return unsub
+  })
+
 
   const style = {
     display: 'grid',

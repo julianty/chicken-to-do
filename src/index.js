@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { collection, doc, getFirestore, onSnapshot} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,15 +20,16 @@ const firebaseConfig = {
   appId: "1:273950036329:web:02ff88e208dbf3df3bedf8"
 };
 
+const app = initializeApp(firebaseConfig);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <App app={app}/>
   </React.StrictMode>
 );
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
