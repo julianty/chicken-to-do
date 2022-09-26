@@ -1,5 +1,6 @@
 import { Component } from "react"
-
+import { EditText } from "react-edit-text";
+import 'react-edit-text/dist/index.css'
 
 class Card extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class Card extends Component {
     return (
       <div className="draggable card">
         <div>{this.state.title}</div>
-        <div>{this.state.textContent}</div>
+        {/* <div contentEditable="true">{this.state.textContent}</div> */}
+        < EditText defaultValue="Click to edit" />
       </div>
     )
   }
