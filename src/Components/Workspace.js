@@ -5,7 +5,7 @@ function Workspace(props) {
 
   return (
     <div id='workspace'>
-      {props.cardList.map(noteClass => <Card />)}
+      {props.cardList.map(noteClass => <Card title={noteClass}/>)}
     </div>
   )
 }

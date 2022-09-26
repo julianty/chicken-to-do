@@ -6,13 +6,16 @@ class Card extends Component {
     super(props)
     this.state = {
       uid: 'admin',
-      created: '00:00:00'
+      created: '00:00:00',
+      title: props.title,
+      textContent: '',
     }
   }
   render = () => {
     return (
-      <div className="draggable">
-        <div>Card</div>
+      <div className="draggable card">
+        <div>{this.state.title}</div>
+        <div>{this.state.textContent}</div>
       </div>
     )
   }

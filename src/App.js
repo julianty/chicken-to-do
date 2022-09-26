@@ -23,12 +23,9 @@ function App(props) {
     const db = getFirestore(props.app);
     const cardsColRef = collection(db, 'cards');
     const unsub = onSnapshot(cardsColRef, (snapshot) => {
-      console.log(snapshot.docs.map((doc) => (
-        {
-          title: doc.data().title
-        }
-      )));
-      // console.log(snapshot.docs[0].data().title);
+      snapshot.docs.forEach(doc => {
+        pushToCardList(doc.data().title);
+      })
     })
 
     return unsub
@@ -46,10 +43,16 @@ function App(props) {
 
   function sidebarClickHandler(e) {
     pushToCardList('card');
+    // Add card to firestore database
+
+    // For trash, remove card from firestore database
   }
 
   function pushToCardList(card) {
-    setCardList(cardList.concat([card]));
+    // Update cardList updates cards on workspace
+    if (cardList.indexOf(card) === -1) {
+      setCardList(cardList.concat([card]));
+    }
   }
 
   return (
