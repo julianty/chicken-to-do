@@ -1,6 +1,9 @@
 .draggable {
-  position: absolute;
   cursor: move;
+}
+
+.card {
+  position: absolute;
   width: 360px;
   height: 50px;
   background-color: white;

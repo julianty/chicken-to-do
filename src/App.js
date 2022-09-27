@@ -9,15 +9,6 @@ import { getFirestore, collection, onSnapshot } from 'firebase/firestore';
 function App(props) {
 
   const [cardList, setCardList] = useState([])
-  // Make elements with the draggable class draggable
-  useEffect(() => {
-    const draggableElements = document.getElementsByClassName('draggable');
-    if (draggableElements) {
-      for (let i=0; i<draggableElements.length; i++) {
-        dragElement(draggableElements[i]);
-      }
-    }
-  },);
 
   useEffect(() => {
     const db = getFirestore(props.app);
