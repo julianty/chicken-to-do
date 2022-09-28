@@ -5,6 +5,7 @@ import Workspace from './Components/Workspace';
 import { useEffect, useState } from 'react';
 import { getFirestore, collection, onSnapshot, Firestore } from 'firebase/firestore';
 import { doc, setDoc } from "firebase/firestore";
+import uniqid from "uniqid";
 
 function App(props) {
 
@@ -34,7 +35,19 @@ function App(props) {
 
 
   function sidebarClickHandler(e) {
-    // pushToCardList('card');
+    // Add card to local database
+    let doc = {
+      data() {
+        return {
+        title: 'Title',
+        uid: 'admin',
+        created: '00:00:00',
+        textContent: 'Click to edit',
+        style: '{}'
+      }}
+    }
+    const docId = uniqid();
+    pushToDocList({...doc, id: docId})
     // Add card to firestore database
 
     // For trash, remove card from firestore database
