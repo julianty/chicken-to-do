@@ -2,10 +2,22 @@ import Card from "./Card"
 
 
 function Workspace(props) {
+  
+  let docList = props.docList;
+
+
 
   return (
     <div id='workspace'>
-      {props.cardList.map(noteClass => <Card title={noteClass}/>)}
+      {props.docList.map(doc=> {
+        return (
+          <Card 
+            key={doc.id}
+            docId={doc.id}
+            data={doc.data()}
+            updateFirestore={props.updateFirestore}/>
+        )
+      })}
     </div>
   )
 }

@@ -7,11 +7,13 @@ import dragElement from "./dragElement";
 class Card extends Component {
   constructor(props) {
     super(props)
+    this.data = this.props.data;
     this.state = {
       uid: 'admin',
       created: '00:00:00',
-      title: props.title,
-      textContent: '',
+      title: this.data.title,
+      textContent: this.data.textContent,
+      style: this.data.style
     }
   }
   // Make elements with the draggable class draggable
@@ -23,18 +25,20 @@ class Card extends Component {
       }
     }
   }
+  componentDidMount() {
+    this.enableAllDraggable();
+  }
 
   disableAllDraggable = () => {
     let draggableList = document.getElementsByClassName('draggable');
     draggableList = Array.from(draggableList);
     for (const element of draggableList) {
-      console.log(element)
       element.classList.remove('draggable');
       element.onmousedown = null;
     }
   }
 
-  enableAllDraggable = () => {
+  enableAllDraggable = (e) => {
     let cardList = document.getElementsByClassName('card');
     for (const element of cardList) {
       element.classList.add('draggable');
@@ -42,16 +46,28 @@ class Card extends Component {
     }
   }
 
+  updateState = (e) => {
+    console.log(e.value);
+    this.setState(
+      {textContent: e.value},
+      () => this.props.updateFirestore(this.state, this.props.docId)
+    )
+  }
+
+  onBlur = (e) => {
+    this.enableAllDraggable();
+  }
+
 
   render = () => {
     return (
       <div className="draggable card">
         <div>{this.state.title}</div>
-        {/* <div contentEditable="true">{this.state.textContent}</div> */}
         < EditText 
-          defaultValue="Click to edit" 
+          defaultValue={this.state.textContent}
           onEditMode={this.disableAllDraggable}
-          onBlur={this.enableAllDraggable}/>
+          onBlur={this.onBlur}
+          onSave={this.updateState}/>
       </div>
     )
   }
