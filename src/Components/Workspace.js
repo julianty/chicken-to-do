@@ -1,5 +1,4 @@
-import Card from "./Card"
-
+import Note from './Note';
 
 function Workspace(props) {
   
@@ -11,7 +10,8 @@ function Workspace(props) {
     <div id='workspace'>
       {props.docList.map(doc=> {
         return (
-          <Card 
+          // TODO: read doc.data().type for the card
+          <Note 
             key={doc.id}
             docId={doc.id}
             data={doc.data()}

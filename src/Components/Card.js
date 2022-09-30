@@ -1,5 +1,4 @@
 import { Component,  createRef } from "react"
-import { EditText } from "react-edit-text";
 import 'react-edit-text/dist/index.css'
 import dragElement from "./dragElement";
 
@@ -14,7 +13,8 @@ class Card extends Component {
       created: '00:00:00',
       title: this.data.title,
       textContent: this.data.textContent,
-      style: this.data.style
+      style: this.data.style,
+      type: '',
     }
   }
   // Make elements with the draggable class draggable
@@ -52,6 +52,7 @@ class Card extends Component {
       {textContent: e.value},
       () => this.props.updateFirestore(this.state, this.props.docId)
     )
+    console.log(this.state);
   }
 
   onBlur = (e) => {
@@ -59,11 +60,9 @@ class Card extends Component {
   }
 
   mouseUp = () => {
-    console.log(this.cardRef.current.style);
     const style = this.cardRef.current.style;
     // Save position of element
     const [top, left] = [style.top, style.left];
-    console.log(JSON.stringify({top: top, left: left}))
     this.setState(
       {style: JSON.stringify({top: top, left: left})},
       () => this.props.updateFirestore(this.state, this.props.docId)
@@ -72,25 +71,6 @@ class Card extends Component {
   }
 
 
-  render = () => {
-    return (
-      <div className="draggable card" 
-        ref={this.cardRef} 
-        onMouseUp={this.mouseUp}
-        style={JSON.parse(this.state.style)}>
-
-        <div>{this.state.title}</div>
-
-        < EditText 
-          defaultValue={this.state.textContent}
-          onEditMode={this.disableAllDraggable}
-          onBlur={this.onBlur}
-          onSave={this.updateState}/>
-      </div>
-    )
-  }
 }
-
-
 
 export default Card
