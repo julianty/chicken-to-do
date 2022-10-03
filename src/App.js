@@ -61,8 +61,9 @@ function App(props) {
   }
 
 
-  function updateFirestore(cardState, docId) {
+  function updateFirestore(cardState, docId, trigger=null) {
     const db = getFirestore(props.app);
+    console.log(`Updating Firestore: doc ${docId}, trigger: ${trigger}`);
     setDoc(doc(db, "cards", docId), {...cardState}, {merge: true});
   }
 

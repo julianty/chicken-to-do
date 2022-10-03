@@ -65,7 +65,7 @@ class Card extends Component {
     const [top, left] = [style.top, style.left];
     this.setState(
       {style: JSON.stringify({top: top, left: left})},
-      () => this.props.updateFirestore(this.state, this.props.docId)
+      () => this.props.updateFirestore(this.state, this.props.docId, 'mouseUp')
     )
 
   }

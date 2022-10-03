@@ -5,7 +5,7 @@
 .card {
   position: absolute;
   width: 360px;
-  height: 50px;
+  height: 100px;
   background-color: white;
   border: 1px solid gray;
   padding: 3px;
@@ -22,4 +22,14 @@ button {
 .click-img {
   height: 40px;
   filter: invert(86%) sepia(98%) saturate(0%) hue-rotate(229deg) brightness(118%) contrast(87%);
+}
+
+.todolistitem {
+  display: flex;
+  height: 30px;
+}
+
+.todolisttextcontent {
+  align-content: flex-end;
+  justify-content: center;
 }
