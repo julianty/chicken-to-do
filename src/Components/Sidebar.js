@@ -1,50 +1,40 @@
+import { Drawer, Divider, List, ListItem, Toolbar } from "@mui/material";
+import { useTheme, styled } from "@mui/material/styles";
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 
-function Sidebar(props) {
-  const style = { 
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'white',
+const drawerWidth = 80;
+
+export default function Sidebar({ clickHandler }) {
+  function noteClick(e) {
+    // Handles clicks on the note button
+    console.log("Click registered");
+    clickHandler(e);
   }
-
-
-
+  const theme = useTheme();
+  const iconStyle = {
+    margin: "auto",
+    color: theme.palette.primary.light,
+  };
   return (
-    <div className='sidebar' style={style}>
-      <div className='componentButtons' style={{
-        display: 'flex',
-        flexDirection: 'column'
-      }}>
-        <button onClick={props.clickHandler}>
-          <img src="note.png" 
-            alt="N" 
-            id='noteButton' 
-            className="click-img"></img>  
-        </button>
-        <button onClick={props.clickHandler}>
-          <img src="link.png" 
-          alt="L" 
-          id='linkButton' 
-          className="click-img"></img>  
-        </button>
-        <button onClick={props.clickHandler}>
-          <img src="todo.png" 
-          alt="TD" 
-          id='todoButton' 
-          className="click-img"></img>  
-        </button>
-
-      </div>
-      <button onClick={props.clickHandler}>
-        <img src="trash.png" 
-        alt="Tr" 
-        id='trashButton' 
-        className="click-img"></img>  
-      </button>
-    </div>
-  )
+    <Drawer
+      variant="permanent"
+      sx={{
+        width: drawerWidth,
+        [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box" },
+      }}
+    >
+      <Toolbar />
+      <Divider />
+      <List>
+        {/* Add click handlers to make new notes */}
+        <ListItem>
+          <NoteAddIcon sx={iconStyle} onClick={noteClick} />
+        </ListItem>
+        <ListItem>
+          <FormatListBulletedIcon sx={iconStyle} />
+        </ListItem>
+      </List>
+    </Drawer>
+  );
 }
-
-
-export default Sidebar
