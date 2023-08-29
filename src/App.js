@@ -3,7 +3,7 @@ import { CssBaseline, Grid, Box } from "@mui/material";
 import Header from "./Components/Header";
 import Sidebar from "./Components/Sidebar";
 import Workspace from "./Components/Workspace";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   getFirestore,
   collection,
@@ -11,10 +11,22 @@ import {
   Firestore,
 } from "firebase/firestore";
 import { doc, setDoc } from "firebase/firestore";
+import update from "immutability-helper";
 import uniqid from "uniqid";
 
 function App(props) {
-  const [docList, setDocList] = useState([]);
+  const [docList, setDocList] = useState({
+    randomId1: {
+      top: 20,
+      left: 20,
+      text: "I am card 1",
+    },
+    randomId2: {
+      top: 30,
+      left: 30,
+      text: "I am card 2",
+    },
+  });
 
   useEffect(() => {
     const db = getFirestore(props.app);
@@ -56,6 +68,20 @@ function App(props) {
     }
   }
 
+  const updateDocList = useCallback(
+    (id, left, top) => {
+      console.log("updating docList");
+      setDocList(
+        update(docList, {
+          [id]: {
+            $merge: { left, top },
+          },
+        })
+      );
+    },
+    [docList, setDocList]
+  );
+
   function updateFirestore(cardState, docId, trigger = null) {
     // Give this function to Workspace component to save changes
     const db = getFirestore(props.app);
@@ -70,7 +96,7 @@ function App(props) {
         <Sidebar clickHandler={sidebarClickHandler} />
         <Workspace
           docList={docList}
-          setDocList={setDocList}
+          updateDocList={updateDocList}
           updateFirestore={updateFirestore}
         />
       </Box>
