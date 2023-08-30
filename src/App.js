@@ -43,32 +43,34 @@ function App(props) {
 
   function sidebarClickHandler(type) {
     // Should be called by functions in Sidebar.js indicating the type of note
-
     // Add card to local database
-    let card = {
+    const newId = uniqid();
+    const cardData = {
+      type: type,
       title: "Title",
       uid: "admin",
       created: "00:00:00",
-      textContent: "Click to edit",
+      text: "Click to edit",
       top: "0",
-      left: "0px",
+      left: "0",
       id: uniqid(),
     };
-    pushToDocList(card);
-    console.log("sidebarClickHandler");
+    const newCard = {};
+    newCard[newId] = cardData;
+    pushToDocList(newCard);
     // Add card to firestore database
 
     // For trash, remove card from firestore database
   }
 
-  function pushToDocList(newDoc) {
+  function pushToDocList(newCard) {
     // Appends new cards
-    if (docList.find((doc) => doc.id === newDoc.id) === undefined) {
-      setDocList(docList.concat([newDoc]));
-    }
+    // setDocList(docList.concat([newDoc]));
+    setDocList({ ...newCard, ...docList });
   }
 
-  const updateDocList = useCallback(
+  const moveCard = useCallback(
+    // Called in Workspace.js whenever a card is moved
     (id, left, top) => {
       console.log("updating docList");
       setDocList(
@@ -81,6 +83,10 @@ function App(props) {
     },
     [docList, setDocList]
   );
+
+  const updateDocList = useCallback((id, card) => {
+    console.log(id, card);
+  });
 
   function updateFirestore(cardState, docId, trigger = null) {
     // Give this function to Workspace component to save changes
@@ -97,7 +103,7 @@ function App(props) {
         <Workspace
           docList={docList}
           updateDocList={updateDocList}
-          updateFirestore={updateFirestore}
+          moveCard={moveCard}
         />
       </Box>
     </>
