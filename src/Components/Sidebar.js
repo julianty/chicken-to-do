@@ -8,8 +8,13 @@ const drawerWidth = 80;
 export default function Sidebar({ clickHandler }) {
   function noteClick(e) {
     // Handles clicks on the note button
-    console.log("Click registered");
-    clickHandler(e);
+    console.log("Note click registered");
+    clickHandler("note");
+  }
+  function toDoClick(e) {
+    // Handles clicks on the note button
+    console.log("Todo click registered");
+    clickHandler("todo");
   }
   const theme = useTheme();
   const iconStyle = {
@@ -32,7 +37,7 @@ export default function Sidebar({ clickHandler }) {
           <NoteAddIcon sx={iconStyle} onClick={noteClick} />
         </ListItem>
         <ListItem>
-          <FormatListBulletedIcon sx={iconStyle} />
+          <FormatListBulletedIcon sx={iconStyle} onClick={toDoClick} />
         </ListItem>
       </List>
     </Drawer>
