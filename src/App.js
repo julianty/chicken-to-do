@@ -15,31 +15,45 @@ import update from "immutability-helper";
 import uniqid from "uniqid";
 
 function App(props) {
-  const [docList, setDocList] = useState({
-    randomId1: {
-      top: 20,
-      left: 20,
-      text: "I am card 1",
-    },
-    randomId2: {
-      top: 30,
-      left: 30,
-      text: "I am card 2",
-    },
-  });
+  // const [docList, setDocList] = useState({
+  //   randomId1: {
+  //     top: 20,
+  //     left: 20,
+  //     content: "<div>I am card 1</div>",
+  //   },
+  //   randomId2: {
+  //     top: 30,
+  //     left: 30,
+  //     content: "<div>I am card 2</div>",
+  //   },
+  // });
+  const [docList, setDocList] = useState([]);
 
   useEffect(() => {
     const db = getFirestore(props.app);
     const cardsColRef = collection(db, "cards");
     const unsub = onSnapshot(cardsColRef, (snapshot) => {
-      snapshot.docs.forEach((doc) => {
-        // give doc.data() in its entirety to be parsed in workspace
-        pushToDocList(doc);
+      // console.log(snapshot.docs);
+      snapshot.docs.forEach((card) => {
+        // Check for existence of card
+        if (!(card.id in docList)) {
+          // If not present, add to docList
+          const newCard = {};
+          newCard[card.id] = card.data();
+          pushToDocList(newCard);
+        }
       });
     });
 
     return unsub;
   });
+
+  useEffect(() => {
+    const db = getFirestore();
+    Object.keys(docList).forEach((key) => {
+      setDoc(doc(db, "cards", key), docList[key], { merge: true });
+    });
+  }, [docList]);
 
   function sidebarClickHandler(type) {
     // Should be called by functions in Sidebar.js indicating the type of note
@@ -50,7 +64,7 @@ function App(props) {
       title: "Title",
       uid: "admin",
       created: "00:00:00",
-      text: "Click to edit",
+      content: "<div>Click to edit</div>",
       top: "0",
       left: "0",
       id: uniqid(),
@@ -84,16 +98,19 @@ function App(props) {
     [docList, setDocList]
   );
 
-  const updateDocList = useCallback((id, card) => {
-    console.log(id, card);
-  });
-
-  function updateFirestore(cardState, docId, trigger = null) {
-    // Give this function to Workspace component to save changes
-    const db = getFirestore(props.app);
-    console.log(`Updating Firestore: doc ${docId}, trigger: ${trigger}`);
-    setDoc(doc(db, "cards", docId), { ...cardState }, { merge: true });
-  }
+  const updateDocList = useCallback(
+    (id, card) => {
+      console.log(card);
+      setDocList(
+        update(docList, {
+          [id]: {
+            $merge: card,
+          },
+        })
+      );
+    },
+    [docList, setDocList]
+  );
 
   return (
     <>

@@ -28,15 +28,16 @@ function Workspace({ docList, moveCard, updateDocList }) {
     <Box sx={{ flexGrow: 1 }} ref={drop}>
       {Object.keys(docList).map((key) => {
         // Need to generalize this to accomodate things other than notes later
-        const { left, top, text, type } = docList[key];
+        const { left, top, content, type } = docList[key];
         return (
           <Notecard
             key={uniqid()}
             id={key}
-            text={text}
+            content={content}
             left={left}
             top={top}
             type={type}
+            updateDocList={updateDocList}
           />
         );
       })}
